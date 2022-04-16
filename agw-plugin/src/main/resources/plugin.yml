@@ -1,0 +1,7 @@
+name: AsteroidGunWar
+version: '${project.version}'
+main: io.github.asteroidmc.agwplugin.AgwPlugin
+prefix: AGW
+load: STARTUP
+authors: [ clkd ]
+description: A GunWar plugin for Paper servers by Asteroid MC
