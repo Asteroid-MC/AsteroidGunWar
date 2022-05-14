@@ -21,10 +21,11 @@ package io.github.asteroidmc.agw;
 
 import io.github.asteroidmc.agw.core.AgwCore;
 import io.github.asteroidmc.agw.listeners.AgwPlayerListener;
+import io.github.asteroidmc.agw.localization.AgwLg;
+import io.github.asteroidmc.agw.localization.UnlocalizedText;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +36,16 @@ public final class AgwPluginManager implements AgwManager {
     private final AgwCore core;
     private final List<Listener> events;
     private final PluginManager pluginManager;
+    private final AgwRegistry<UnlocalizedText> registeredTexts;
+    private final AgwRegistry<AgwLg> registeredLangs;
 
     AgwPluginManager(AgwPaperPlugin plugin) {
         this.plugin = plugin;
         this.core = AgwCore.getCore();
         this.events = new ArrayList<>();
         this.pluginManager = Bukkit.getPluginManager();
+        this.registeredTexts = new AgwRegistry<>();
+        this.registeredLangs = new AgwRegistry<>();
     }
 
     @Override
@@ -67,5 +72,25 @@ public final class AgwPluginManager implements AgwManager {
     @Override
     public List<Listener> getEvents() {
         return events;
+    }
+
+    @Override
+    public void registerText(UnlocalizedText text) {
+        registeredTexts.register(text);
+    }
+
+    @Override
+    public void registerLang(AgwLg language) {
+        registeredLangs.register(language);
+    }
+
+    @Override
+    public AgwRegistry<UnlocalizedText> getTexts() {
+        return registeredTexts;
+    }
+
+    @Override
+    public AgwRegistry<AgwLg> getLangs() {
+        return registeredLangs;
     }
 }

@@ -17,39 +17,38 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.github.asteroidmc.agw;
+package io.github.asteroidmc.agw.localization;
 
-import io.github.asteroidmc.agw.localization.UnlocalizedText;
-import org.jetbrains.annotations.Nullable;
+public final class AgwUnlocalizedText implements UnlocalizedText {
 
-public interface AgwAPI {
+    private String tag;
+    private String def;
+    private AgwTextLocalizer localizer;
 
-    /**
-     * Returns the API is closed.<br>
-     * If the API is closed, you cannot use all of API features.
-     *
-     * @return true if the API is closed,<br>
-     * false if the API is not closed
-     */
-    boolean isClosed();
-
-    /**
-     * Creates new unlocalized text for localizing.<br>
-     * If you make module or plugin, please add .lang file.
-     *
-     * @param tag unlocalized text with String
-     * @param def default text
-     * @return unlocalized text object
-     */
-    UnlocalizedText createUnlocalizedText(String tag, String def);
-
-    /**
-     * Gets the instance of API.
-     *
-     * @return instance
-     */
-    static AgwAPI getAPI() {
-        return AgwPlugin.api;
+    public AgwUnlocalizedText(String tag, String def) {
+        if(tag.matches("[^a-zA-Z0-9_\\-.*]")) throw new IllegalArgumentException("contains invalid characters (valid chars: a-z A-Z 0-9 _ - . *)");
+        this.tag = tag;
+        this.def = def;
+        this.localizer = new AgwTextLocalizer(this);
     }
 
+    @Override
+    public String getDefault() {
+        return def;
+    }
+
+    @Override
+    public String getTag() {
+        return tag;
+    }
+
+    @Override
+    public TextLocalizer localizer() {
+        return localizer;
+    }
+
+    @Override
+    public String registeringName() {
+        return tag;
+    }
 }

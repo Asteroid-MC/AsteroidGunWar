@@ -19,37 +19,17 @@
 
 package io.github.asteroidmc.agw;
 
-import io.github.asteroidmc.agw.localization.UnlocalizedText;
-import org.jetbrains.annotations.Nullable;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-public interface AgwAPI {
+import static java.lang.annotation.ElementType.TYPE;
 
-    /**
-     * Returns the API is closed.<br>
-     * If the API is closed, you cannot use all of API features.
-     *
-     * @return true if the API is closed,<br>
-     * false if the API is not closed
-     */
-    boolean isClosed();
+@Retention(RetentionPolicy.RUNTIME)
+@Target(value={TYPE})
+public @interface Agw {
 
-    /**
-     * Creates new unlocalized text for localizing.<br>
-     * If you make module or plugin, please add .lang file.
-     *
-     * @param tag unlocalized text with String
-     * @param def default text
-     * @return unlocalized text object
-     */
-    UnlocalizedText createUnlocalizedText(String tag, String def);
-
-    /**
-     * Gets the instance of API.
-     *
-     * @return instance
-     */
-    static AgwAPI getAPI() {
-        return AgwPlugin.api;
-    }
+    AgwType type() default AgwType.PLUGIN;
 
 }

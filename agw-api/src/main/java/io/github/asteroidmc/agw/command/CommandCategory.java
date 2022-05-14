@@ -17,39 +17,37 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.github.asteroidmc.agw;
+package io.github.asteroidmc.agw.command;
 
-import io.github.asteroidmc.agw.localization.UnlocalizedText;
-import org.jetbrains.annotations.Nullable;
+public enum CommandCategory {
 
-public interface AgwAPI {
+    GENERAL(0, "agw.command.general", "agw"),
+    SYSTEM(10, "agw.command.system", "agw-system"),
+    GAME(11, "agw.command.game", "agw-game"),
+    CHAT(12, "agw.command.chat", "agw-chat"),
+    PLAYER(20, "agw.command.player", "agw-player"),
+    PROXY(-1, "agw.command.proxy", "agw-proxy");
 
-    /**
-     * Returns the API is closed.<br>
-     * If the API is closed, you cannot use all of API features.
-     *
-     * @return true if the API is closed,<br>
-     * false if the API is not closed
-     */
-    boolean isClosed();
+    private final int id;
+    private final String permission;
+    private final String prefix;
 
-    /**
-     * Creates new unlocalized text for localizing.<br>
-     * If you make module or plugin, please add .lang file.
-     *
-     * @param tag unlocalized text with String
-     * @param def default text
-     * @return unlocalized text object
-     */
-    UnlocalizedText createUnlocalizedText(String tag, String def);
+    CommandCategory(int id, String permission, String prefix) {
+        this.id = id;
+        this.permission = permission;
+        this.prefix = prefix;
+    }
 
-    /**
-     * Gets the instance of API.
-     *
-     * @return instance
-     */
-    static AgwAPI getAPI() {
-        return AgwPlugin.api;
+    public int getId() {
+        return id;
+    }
+
+    public String getPermission() {
+        return permission;
+    }
+
+    public String getPrefix() {
+        return prefix;
     }
 
 }

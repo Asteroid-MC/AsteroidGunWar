@@ -17,21 +17,12 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.github.asteroidmc.agw;
+package io.github.asteroidmc.agw.localization;
 
-import io.github.asteroidmc.agw.localization.UnlocalizedText;
-import org.jetbrains.annotations.Nullable;
+import io.github.asteroidmc.agw.AgwAPI;
+import io.github.asteroidmc.agw.Registerable;
 
-public interface AgwAPI {
-
-    /**
-     * Returns the API is closed.<br>
-     * If the API is closed, you cannot use all of API features.
-     *
-     * @return true if the API is closed,<br>
-     * false if the API is not closed
-     */
-    boolean isClosed();
+public interface UnlocalizedText extends Registerable {
 
     /**
      * Creates new unlocalized text for localizing.<br>
@@ -41,15 +32,14 @@ public interface AgwAPI {
      * @param def default text
      * @return unlocalized text object
      */
-    UnlocalizedText createUnlocalizedText(String tag, String def);
-
-    /**
-     * Gets the instance of API.
-     *
-     * @return instance
-     */
-    static AgwAPI getAPI() {
-        return AgwPlugin.api;
+    static UnlocalizedText create(String tag, String def) {
+        return AgwAPI.getAPI().createUnlocalizedText(tag, def);
     }
+
+    String getDefault();
+
+    String getTag();
+
+    TextLocalizer localizer();
 
 }

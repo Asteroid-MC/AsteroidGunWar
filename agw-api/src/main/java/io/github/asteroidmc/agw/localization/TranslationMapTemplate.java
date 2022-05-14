@@ -17,39 +17,27 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.github.asteroidmc.agw;
+package io.github.asteroidmc.agw.localization;
 
-import io.github.asteroidmc.agw.localization.UnlocalizedText;
-import org.jetbrains.annotations.Nullable;
+import io.github.asteroidmc.agw.xio.StringMap;
 
-public interface AgwAPI {
+public final class TranslationMapTemplate {
 
-    /**
-     * Returns the API is closed.<br>
-     * If the API is closed, you cannot use all of API features.
-     *
-     * @return true if the API is closed,<br>
-     * false if the API is not closed
-     */
-    boolean isClosed();
+    private static final StringMap map;
 
-    /**
-     * Creates new unlocalized text for localizing.<br>
-     * If you make module or plugin, please add .lang file.
-     *
-     * @param tag unlocalized text with String
-     * @param def default text
-     * @return unlocalized text object
-     */
-    UnlocalizedText createUnlocalizedText(String tag, String def);
+    static {
 
-    /**
-     * Gets the instance of API.
-     *
-     * @return instance
-     */
-    static AgwAPI getAPI() {
-        return AgwPlugin.api;
+        StringMap.Builder builder = new StringMap.Builder();
+
+        builder.put("prefix", "");
+        builder.put("error.permission", "");
+
+        map = builder.build();
+
+    }
+
+    public static StringMap template() {
+        return map;
     }
 
 }

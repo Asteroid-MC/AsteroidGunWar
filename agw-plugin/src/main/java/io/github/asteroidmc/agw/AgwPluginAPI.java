@@ -19,6 +19,7 @@
 
 package io.github.asteroidmc.agw;
 
+import io.github.asteroidmc.agw.localization.UnlocalizedText;
 import org.jetbrains.annotations.NotNull;
 
 public final class AgwPluginAPI implements AgwAPI {
@@ -36,6 +37,11 @@ public final class AgwPluginAPI implements AgwAPI {
     @Override
     public boolean isClosed() {
         return closed;
+    }
+
+    @Override
+    public UnlocalizedText createUnlocalizedText(String tag, String def) {
+        return null;
     }
 
     void closeAPI() {

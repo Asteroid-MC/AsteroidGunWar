@@ -19,9 +19,9 @@
 
 package io.github.asteroidmc.agw;
 
+import io.github.asteroidmc.agw.localization.AgwLg;
+import io.github.asteroidmc.agw.localization.UnlocalizedText;
 import org.bukkit.event.Listener;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -41,5 +41,23 @@ public interface AgwManager {
      * @return list of events
      */
     List<Listener> getEvents();
+
+    /**
+     * Registers an unlocalized text for localizing.
+     *
+     * @param text unlocalized text input
+     */
+    void registerText(UnlocalizedText text);
+
+    /**
+     * Registers an language for localizing any texts
+     *
+     * @param language language to register
+     */
+    void registerLang(AgwLg language);
+
+    AgwRegistry<AgwLg> getLangs();
+
+    AgwRegistry<UnlocalizedText> getTexts();
 
 }
