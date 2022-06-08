@@ -37,6 +37,8 @@ public abstract class AgwPlugin extends JavaPlugin {
         return instance;
     }
 
+    public abstract AgwFileManager getFileManager();
+
     /**
      * Gets the plugin manager.
      *

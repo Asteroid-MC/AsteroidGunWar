@@ -33,15 +33,17 @@ public abstract class AgwLg implements Registerable {
         this.stringMap = StringMap.empty();
     }
 
-    public String getId() {
+    public final String getId() {
         return id;
     }
 
-    protected void setId(String id) {
+    protected final void setId(String id) {
         this.id = id;
     }
 
-    public StringMap translationMap() {
+    public abstract void loadLang();
+
+    public final StringMap translationMap() {
         return stringMap;
     }
 
@@ -63,7 +65,7 @@ public abstract class AgwLg implements Registerable {
     }
 
     @Override
-    public String registeringName() {
+    public final String registeringName() {
         return id;
     }
 }

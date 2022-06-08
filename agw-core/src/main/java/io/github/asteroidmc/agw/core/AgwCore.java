@@ -19,6 +19,7 @@
 
 package io.github.asteroidmc.agw.core;
 
+import io.github.asteroidmc.agw.AgwAPI;
 import io.github.asteroidmc.agw.AgwPlugin;
 import io.github.asteroidmc.agw.core.listeners.PlayerListener;
 import io.github.asteroidmc.agw.localization.DefaultTexts;

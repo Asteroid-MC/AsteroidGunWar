@@ -27,7 +27,10 @@ public final class AgwPaperPlugin extends AgwPlugin {
     private static AgwPaperPlugin instance;
     private static AgwCore core;
 
+    private static AgwPluginAPI api;
+
     private AgwPluginManager agwManager;
+    private AgwDataFileManager fileManager;
 
     @Override
     public void onEnable() {
@@ -36,7 +39,9 @@ public final class AgwPaperPlugin extends AgwPlugin {
         instance = this;
         agwManager = new AgwPluginManager(this);
         core = new AgwCore();
+        api = new AgwPluginAPI();
         AgwPlugin.api = new AgwPluginAPI();
+        fileManager = new AgwDataFileManager(this, api);
 
         agwManager.enable();
     }
@@ -50,6 +55,11 @@ public final class AgwPaperPlugin extends AgwPlugin {
 
     public static AgwPaperPlugin getInstance() {
         return instance;
+    }
+
+    @Override
+    public AgwDataFileManager getFileManager() {
+        return fileManager;
     }
 
     public AgwCore getCore() {

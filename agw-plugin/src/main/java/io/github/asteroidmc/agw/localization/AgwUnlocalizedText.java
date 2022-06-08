@@ -22,19 +22,12 @@ package io.github.asteroidmc.agw.localization;
 public final class AgwUnlocalizedText implements UnlocalizedText {
 
     private String tag;
-    private String def;
     private AgwTextLocalizer localizer;
 
-    public AgwUnlocalizedText(String tag, String def) {
+    public AgwUnlocalizedText(String tag) {
         if(tag.matches("[^a-zA-Z0-9_\\-.*]")) throw new IllegalArgumentException("contains invalid characters (valid chars: a-z A-Z 0-9 _ - . *)");
         this.tag = tag;
-        this.def = def;
         this.localizer = new AgwTextLocalizer(this);
-    }
-
-    @Override
-    public String getDefault() {
-        return def;
     }
 
     @Override

@@ -28,10 +28,25 @@ public class XRL {
     private File file;
     private boolean directory;
 
-    public XRL(boolean directory, String... path) {
-        this.path = String.join(File.separator, path);
+    public XRL(boolean directory, String... paths) {
+        if(paths.length >= 1) throw new IllegalArgumentException("paths is empty.");
+        this.path = mergePaths(paths);
         this.file = new File(this.path);
         this.directory = directory;
+    }
+
+    public static String mergePaths(String... paths) {
+        StringBuilder sb = new StringBuilder();
+        String sep = File.separator;
+        boolean sf = false;
+        for(String p : paths) {
+            String s = p;
+            if(sf && p.startsWith(sep)) s = p.substring(1);
+            else if(!sf && !p.startsWith(sep)) sb.append(sep);
+            sb.append(s);
+            if(p.endsWith(sep)) sf = true;
+        }
+        return sb.toString().trim();
     }
 
     public String getPath() {

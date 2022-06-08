@@ -38,10 +38,9 @@ public interface AgwAPI {
      * If you make module or plugin, please add .lang file.
      *
      * @param tag unlocalized text with String
-     * @param def default text
      * @return unlocalized text object
      */
-    UnlocalizedText createUnlocalizedText(String tag, String def);
+    UnlocalizedText createUnlocalizedText(String tag);
 
     /**
      * Gets the instance of API.
@@ -50,6 +49,10 @@ public interface AgwAPI {
      */
     static AgwAPI getAPI() {
         return AgwPlugin.api;
+    }
+
+    static AgwFileManager fileManager() {
+        return AgwPlugin.instance.getFileManager();
     }
 
 }

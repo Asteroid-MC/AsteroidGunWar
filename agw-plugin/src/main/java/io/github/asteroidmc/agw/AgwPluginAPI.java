@@ -19,6 +19,7 @@
 
 package io.github.asteroidmc.agw;
 
+import io.github.asteroidmc.agw.localization.AgwUnlocalizedText;
 import io.github.asteroidmc.agw.localization.UnlocalizedText;
 import org.jetbrains.annotations.NotNull;
 
@@ -40,8 +41,8 @@ public final class AgwPluginAPI implements AgwAPI {
     }
 
     @Override
-    public UnlocalizedText createUnlocalizedText(String tag, String def) {
-        return null;
+    public UnlocalizedText createUnlocalizedText(String tag) {
+        return new AgwUnlocalizedText(tag);
     }
 
     void closeAPI() {
@@ -51,6 +52,10 @@ public final class AgwPluginAPI implements AgwAPI {
 
     public static AgwPluginAPI getInstance() {
         return api;
+    }
+
+    public static AgwDataFileManager fileManager() {
+        return AgwPaperPlugin.getInstance().getFileManager();
     }
 
 }

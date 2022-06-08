@@ -27,4 +27,8 @@ public final class LangEnglishUS extends AgwLg {
         super("en_us");
     }
 
+    @Override
+    public void loadLang() {
+
+    }
 }

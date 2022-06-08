@@ -30,7 +30,7 @@ public final class DefaultTexts {
     public static final UnlocalizedText ERROR_PERMISSION = text("error.permission", "You have no permission to do this.");
 
     private static UnlocalizedText text(String tag, String def) {
-        UnlocalizedText ut = UnlocalizedText.create(tag, def);
+        UnlocalizedText ut = UnlocalizedText.create(tag);
         texts.add(ut);
         return ut;
     }

@@ -56,6 +56,7 @@ public final class AgwPluginManager implements AgwManager {
     void enable() {
         regEv(new AgwPlayerListener());
 
+        AgwPluginAPI.fileManager().init();
         core.init();
     }
 

@@ -17,26 +17,39 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.github.asteroidmc.agw.localization;
+package io.github.asteroidmc.agw;
 
-import io.github.asteroidmc.agw.AgwAPI;
-import io.github.asteroidmc.agw.Registerable;
+import io.github.asteroidmc.agw.xio.XRL;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.plugin.Plugin;
 
-public interface UnlocalizedText extends Registerable {
+import java.io.File;
 
-    /**
-     * Creates new unlocalized text for localizing.<br>
-     * If you make module or plugin, please add .lang file.
-     *
-     * @param tag unlocalized text with String
-     * @return unlocalized text object
-     */
-    static UnlocalizedText create(String tag) {
-        return AgwAPI.getAPI().createUnlocalizedText(tag);
+public interface AgwFileManager {
+
+    default File newFile(String... paths) {
+        String path = XRL.mergePaths(paths);
+        return new File(path);
     }
 
-    String getTag();
+    File getDataFolder();
 
-    TextLocalizer localizer();
+    XRL fileToXRL(File file);
+
+    File XRLToFile(XRL xrl);
+
+    File getLangFile();
+
+    FileConfiguration getConfig();
+
+    void reloadConfig();
+
+    void writeDefault(File file, String resource, Plugin plugin);
+
+    void saveDefault(File file, String resource, Plugin plugin);
+
+    void writeDefault(XRL xrl, String resource, Plugin plugin);
+
+    void saveDefault(XRL xrl, String resource, Plugin plugin);
 
 }
