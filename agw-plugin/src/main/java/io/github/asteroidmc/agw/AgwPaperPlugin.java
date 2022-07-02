@@ -20,7 +20,6 @@
 package io.github.asteroidmc.agw;
 
 import io.github.asteroidmc.agw.core.AgwCore;
-import org.jetbrains.annotations.NotNull;
 
 public final class AgwPaperPlugin extends AgwPlugin {
 
@@ -44,6 +43,13 @@ public final class AgwPaperPlugin extends AgwPlugin {
         fileManager = new AgwDataFileManager(this, api);
 
         agwManager.enable();
+
+        getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+            @Override
+            public void run() {
+                agwManager.ready();
+            }
+        });
     }
 
     @Override

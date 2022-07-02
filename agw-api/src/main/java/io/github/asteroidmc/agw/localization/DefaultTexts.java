@@ -26,10 +26,14 @@ public final class DefaultTexts {
 
     private static final List<UnlocalizedText> texts = new ArrayList<>();
 
-    public static final UnlocalizedText PREFIX = text("prefix", "&2[AGW]");
-    public static final UnlocalizedText ERROR_PERMISSION = text("error.permission", "You have no permission to do this.");
+    public static final UnlocalizedText PREFIX = text("prefix");
 
-    private static UnlocalizedText text(String tag, String def) {
+    public static final UnlocalizedText ERROR_PERMISSION = text("error.permission");
+
+    public static final UnlocalizedText CHAT_PLAYER_SERVER_JOIN = text("chat.player.server_join");
+    public static final UnlocalizedText CHAT_PLAYER_SERVER_QUIT = text("chat.player.server_quit");
+
+    private static UnlocalizedText text(String tag) {
         UnlocalizedText ut = UnlocalizedText.create(tag);
         texts.add(ut);
         return ut;

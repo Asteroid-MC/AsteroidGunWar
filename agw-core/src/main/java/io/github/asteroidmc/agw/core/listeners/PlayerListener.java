@@ -19,6 +19,7 @@
 
 package io.github.asteroidmc.agw.core.listeners;
 
+import io.github.asteroidmc.agw.localization.DefaultTexts;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

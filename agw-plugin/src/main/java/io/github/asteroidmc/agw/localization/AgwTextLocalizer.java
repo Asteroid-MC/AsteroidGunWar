@@ -20,6 +20,7 @@
 package io.github.asteroidmc.agw.localization;
 
 import io.github.asteroidmc.agw.AgwPaperPlugin;
+import org.bukkit.ChatColor;
 
 public class AgwTextLocalizer implements TextLocalizer {
 
@@ -36,7 +37,8 @@ public class AgwTextLocalizer implements TextLocalizer {
 
     @Override
     public String format(AgwLg lang) {
-        return lang.translator().translate(this);
+        return ChatColor.translateAlternateColorCodes('&',
+                lang.translator().translate(this));
     }
 
     @Override

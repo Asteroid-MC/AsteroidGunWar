@@ -19,7 +19,9 @@
 
 package io.github.asteroidmc.agw;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AgwRegistry<T extends Registerable> {
@@ -54,6 +56,10 @@ public class AgwRegistry<T extends Registerable> {
         if(!map.containsKey(rn)) throw new IllegalArgumentException("not registered yet: " + id);
 
         return map.get(rn);
+    }
+
+    public Collection<T> list() {
+        return map.values();
     }
 
 }

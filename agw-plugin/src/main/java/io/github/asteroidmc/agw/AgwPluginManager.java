@@ -27,7 +27,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public final class AgwPluginManager implements AgwManager {
@@ -58,6 +60,13 @@ public final class AgwPluginManager implements AgwManager {
 
         AgwPluginAPI.fileManager().init();
         core.init();
+    }
+
+    void ready() {
+        Collection<AgwLg> langs = getLangs().list();
+        for(AgwLg lang : langs) {
+            lang.loadLang();
+        }
     }
 
     public void regEv(Listener listener) {

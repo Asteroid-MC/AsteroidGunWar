@@ -19,17 +19,21 @@
 
 package io.github.asteroidmc.agw.localization;
 
+import io.github.asteroidmc.agw.AgwAPI;
 import io.github.asteroidmc.agw.Registerable;
 import io.github.asteroidmc.agw.xio.StringMap;
+
+import java.io.File;
 
 public abstract class AgwLg implements Registerable {
 
     private String id;
-    private StringMap stringMap;
+    private String displayName;
+    protected StringMap stringMap;
 
     protected AgwLg(String id) {
         if(id.matches("[^a-zA-Z0-9_]")) throw new IllegalArgumentException("contains invalid characters (valid chars: a-z A-Z _)");
-        this.id = id;
+        this.id = this.displayName = id;
         this.stringMap = StringMap.empty();
     }
 
@@ -41,10 +45,27 @@ public abstract class AgwLg implements Registerable {
         this.id = id;
     }
 
-    public abstract void loadLang();
+    protected final void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public final String getDisplayName() {
+        return displayName;
+    }
+
+    public void loadLang() {
+        File lf = langFile();
+        if(lf.exists()) {
+            this.stringMap = StringMap.loadFromJSON(lf);
+        }
+    }
 
     public final StringMap translationMap() {
         return stringMap;
+    }
+
+    public final File langFile() {
+        return new File(AgwAPI.fileManager().getLangFile(), getId() + ".json");
     }
 
     public Translator translator() {

@@ -19,9 +19,14 @@
 
 package io.github.asteroidmc.agw.xio;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
@@ -265,16 +270,43 @@ public final class StringMap extends HashMap<String, String> {
     @NotNull
     public StringMap loadAndAppend(File file) {
         StringMap result = null;
+
         try (StringMapReader reader = new StringMapReader(file, StandardCharsets.UTF_8)) {
             result = reader.readFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         if (result == null) return new StringMap();
-        for(Entry<String, String> entry : result.entrySet()) {
-            super.put(entry.getKey(), entry.getValue());
-        }
+        super.putAll(result);
+
         return result;
+    }
+
+    public String toJSON() {
+        Gson gson = new Gson();
+        JsonObject jsonObject = new JsonObject();
+
+        for(Entry<String, String> entry : entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+
+            jsonObject.addProperty(key, value);
+        }
+
+        return gson.toJson(jsonObject);
+    }
+
+    public void saveJSON(File file) throws IOException {
+        String json = toJSON();
+
+        if(!file.exists()) file.createNewFile();
+        try(FileOutputStream out = new FileOutputStream(file)) {
+            byte[] buf = json.getBytes(StandardCharsets.UTF_8);
+
+            out.write(buf, 0, buf.length);
+            out.flush();
+        }
     }
 
     @NotNull

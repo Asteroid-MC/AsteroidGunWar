@@ -20,9 +20,11 @@
 package io.github.asteroidmc.agw.core;
 
 import io.github.asteroidmc.agw.AgwAPI;
+import io.github.asteroidmc.agw.AgwManager;
 import io.github.asteroidmc.agw.AgwPlugin;
 import io.github.asteroidmc.agw.core.listeners.PlayerListener;
 import io.github.asteroidmc.agw.localization.DefaultTexts;
+import io.github.asteroidmc.agw.localization.StandardLangs;
 import io.github.asteroidmc.agw.localization.UnlocalizedText;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -55,6 +57,9 @@ public final class AgwCore {
         for(UnlocalizedText ut : DefaultTexts.getTexts()) {
             AgwPlugin.getInstance().getAgwManager().registerText(ut);
         }
+
+        AgwManager am = AgwPlugin.getInstance().getAgwManager();
+        am.registerLang(StandardLangs.EN_US);
     }
 
     public void close() {
