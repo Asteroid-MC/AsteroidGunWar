@@ -1,6 +1,6 @@
 name: AsteroidGunWar
-version: '${project.version}'
-main: io.github.asteroidmc.agwplugin.AgwPlugin
+version: '${project.version} (${git.commit.id.describe-short}/${git.branch})'
+main: io.github.asteroidmc.agw.AgwPaperPlugin
 prefix: AGW
 load: STARTUP
 authors: [ clkd ]

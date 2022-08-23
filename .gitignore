@@ -5,6 +5,9 @@
 *.ipr
 *.iws
 
+# Plugin debug
+debug/
+
 # IntelliJ
 out/
 

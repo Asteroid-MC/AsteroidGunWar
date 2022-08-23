@@ -17,25 +17,35 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.github.asteroidmc.agw.listeners;
+package io.github.asteroidmc.agw.localization.text;
 
-import io.github.asteroidmc.agw.AgwPlugin;
-import io.github.asteroidmc.agw.core.listeners.PlayerListener;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+public final class NumberComponent implements TextComponent<Number> {
 
-public final class AgwPlayerListener extends PlayerListener {
+    private Number value;
 
-    @Override
-    @EventHandler
-    public void onJoin(PlayerJoinEvent e) {
-        super.onJoin(e);
+    public NumberComponent(Number value) {
+        this.value = value;
     }
 
     @Override
-    @EventHandler
-    public void onQuit(PlayerQuitEvent e) {
-        super.onQuit(e);
+    public Number getRawComponent() {
+        return value;
+    }
+
+    @Override
+    public void setRawComponent(Number value) {
+        this.value = value;
+    }
+
+    @Override
+    public void applyColor() { }
+
+    @Override
+    public String replaceArgument(String arg, String val) {
+        return String.valueOf(value);
+    }
+
+    public String toString() {
+        return String.valueOf(value);
     }
 }

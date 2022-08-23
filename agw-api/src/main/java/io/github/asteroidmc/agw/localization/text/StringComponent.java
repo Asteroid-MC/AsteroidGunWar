@@ -17,25 +17,36 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.github.asteroidmc.agw.listeners;
+package io.github.asteroidmc.agw.localization.text;
 
-import io.github.asteroidmc.agw.AgwPlugin;
-import io.github.asteroidmc.agw.core.listeners.PlayerListener;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.ChatColor;
 
-public final class AgwPlayerListener extends PlayerListener {
+public final class StringComponent implements TextComponent<String> {
 
-    @Override
-    @EventHandler
-    public void onJoin(PlayerJoinEvent e) {
-        super.onJoin(e);
+    private String value;
+
+    public StringComponent(String value) {
+        this.value = value;
+    }
+
+    public String getRawComponent() {
+        return value;
+    }
+
+    public void setRawComponent(String value) {
+        this.value = value;
+    }
+
+    public void applyColor() {
+        this.value = ChatColor.translateAlternateColorCodes('&', this.value);
     }
 
     @Override
-    @EventHandler
-    public void onQuit(PlayerQuitEvent e) {
-        super.onQuit(e);
+    public String replaceArgument(String arg, String val) {
+        return value.replaceAll("\\Q%" + arg + "%\\E", val);
+    }
+
+    public String toString() {
+        return value;
     }
 }

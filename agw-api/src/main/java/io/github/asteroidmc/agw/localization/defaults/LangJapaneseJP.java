@@ -19,18 +19,17 @@
 
 package io.github.asteroidmc.agw.localization.defaults;
 
-import io.github.asteroidmc.agw.AgwAPI;
 import io.github.asteroidmc.agw.localization.AgwLg;
 import io.github.asteroidmc.agw.xio.StringMap;
 
 import java.io.File;
 import java.io.IOException;
 
-public final class LangEnglishUS extends AgwLg {
+public final class LangJapaneseJP extends AgwLg {
 
-    public LangEnglishUS() {
-        super("en_us");
-        this.setDisplayName("English (US)");
+    public LangJapaneseJP() {
+        super("ja_jp");
+        this.setDisplayName("日本語");
     }
 
     @Override
@@ -43,9 +42,9 @@ public final class LangEnglishUS extends AgwLg {
         StringMap.Builder builder = new StringMap.Builder();
 
         builder.put("prefix", "&9&lA&3&lGW&r &8&l>&r ");
-        builder.put("error.permission", "&cYou have no permission to perform this.");
-        builder.put("chat.player.server_join", "&a>> &e%player% &7joined the server.");
-        builder.put("chat.player.server_quit", "&c<< &e%player% &7left the server.");
+        builder.put("error.permission", "&c権限がありません。");
+        builder.put("chat.player.server_join", "&a>> &e%player% &7がサーバーに参加しました。");
+        builder.put("chat.player.server_quit", "&c<< &e%player% &7がサーバーから退出しました。");
 
         this.stringMap = builder.build();
 
@@ -55,4 +54,5 @@ public final class LangEnglishUS extends AgwLg {
             throw new RuntimeException(e);
         }
     }
+
 }

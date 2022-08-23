@@ -60,6 +60,7 @@ public final class AgwCore {
 
         AgwManager am = AgwPlugin.getInstance().getAgwManager();
         am.registerLang(StandardLangs.EN_US);
+        am.registerLang(StandardLangs.JA_JP);
     }
 
     public void close() {

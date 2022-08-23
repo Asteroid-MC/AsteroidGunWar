@@ -42,14 +42,11 @@ public final class AgwPaperPlugin extends AgwPlugin {
         AgwPlugin.api = new AgwPluginAPI();
         fileManager = new AgwDataFileManager(this, api);
 
+        agwManager.core = core;
+
         agwManager.enable();
 
-        getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
-            @Override
-            public void run() {
-                agwManager.ready();
-            }
-        });
+        getServer().getScheduler().scheduleSyncDelayedTask(this, () -> agwManager.ready());
     }
 
     @Override

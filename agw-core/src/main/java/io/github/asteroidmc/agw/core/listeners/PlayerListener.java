@@ -19,7 +19,10 @@
 
 package io.github.asteroidmc.agw.core.listeners;
 
+import io.github.asteroidmc.agw.AgwPlugin;
 import io.github.asteroidmc.agw.localization.DefaultTexts;
+import io.github.asteroidmc.agw.localization.StandardLangs;
+import io.github.asteroidmc.agw.localization.text.AgwComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -29,18 +32,22 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerListener implements Listener {
 
-    @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
-        e.setJoinMessage(ChatColor.GREEN + ">> " + ChatColor.YELLOW + p.getDisplayName() +
-                ChatColor.GRAY + " がサーバーに参加しました。");
+        AgwComponent component = new AgwComponent().add(DefaultTexts.CHAT_PLAYER_SERVER_JOIN);
+        component.setArgument("player", p.getDisplayName());
+
+        String msg = component.stringify(StandardLangs.JA_JP);
+        System.out.println(msg);
+        e.setJoinMessage(msg);
     }
 
-    @EventHandler
     public void onQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
-        e.setQuitMessage(ChatColor.RED + "<< " + ChatColor.YELLOW + p.getDisplayName() +
-                ChatColor.GRAY + " がサーバーから退出しました。");
+        AgwComponent component = new AgwComponent().add(DefaultTexts.CHAT_PLAYER_SERVER_QUIT);
+        component.setArgument("player", p.getDisplayName());
+
+        e.setQuitMessage(component.stringify(StandardLangs.JA_JP));
     }
 
 }
