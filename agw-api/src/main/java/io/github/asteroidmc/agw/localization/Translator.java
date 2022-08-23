@@ -17,25 +17,12 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.github.asteroidmc.agw.listeners;
+package io.github.asteroidmc.agw.localization;
 
-import io.github.asteroidmc.agw.AgwPlugin;
-import io.github.asteroidmc.agw.core.listeners.PlayerListener;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+public interface Translator {
 
-public final class AgwPlayerListener extends PlayerListener {
+    AgwLg getLang();
 
-    @Override
-    @EventHandler
-    public void onJoin(PlayerJoinEvent e) {
-        super.onJoin(e);
-    }
+    String translate(TextLocalizer localizer);
 
-    @Override
-    @EventHandler
-    public void onQuit(PlayerQuitEvent e) {
-        super.onQuit(e);
-    }
 }

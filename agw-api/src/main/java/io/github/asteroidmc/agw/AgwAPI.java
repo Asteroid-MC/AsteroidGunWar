@@ -19,6 +19,7 @@
 
 package io.github.asteroidmc.agw;
 
+import io.github.asteroidmc.agw.localization.UnlocalizedText;
 import org.jetbrains.annotations.Nullable;
 
 public interface AgwAPI {
@@ -33,12 +34,25 @@ public interface AgwAPI {
     boolean isClosed();
 
     /**
+     * Creates new unlocalized text for localizing.<br>
+     * If you make module or plugin, please add .lang file.
+     *
+     * @param tag unlocalized text with String
+     * @return unlocalized text object
+     */
+    UnlocalizedText createUnlocalizedText(String tag);
+
+    /**
      * Gets the instance of API.
      *
      * @return instance
      */
     static AgwAPI getAPI() {
         return AgwPlugin.api;
+    }
+
+    static AgwFileManager fileManager() {
+        return AgwPlugin.instance.getFileManager();
     }
 
 }

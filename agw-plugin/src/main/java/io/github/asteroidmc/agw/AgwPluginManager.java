@@ -21,26 +21,37 @@ package io.github.asteroidmc.agw;
 
 import io.github.asteroidmc.agw.core.AgwCore;
 import io.github.asteroidmc.agw.listeners.AgwPlayerListener;
+import io.github.asteroidmc.agw.localization.AgwLg;
+import io.github.asteroidmc.agw.localization.UnlocalizedText;
+import io.github.asteroidmc.agw.localization.text.AgwComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
-import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.logging.Logger;
 
 public final class AgwPluginManager implements AgwManager {
 
     private final AgwPaperPlugin plugin;
-    private final AgwCore core;
+    private final Logger logger;
+    AgwCore core;
     private final List<Listener> events;
     private final PluginManager pluginManager;
+    private final AgwRegistry<UnlocalizedText> registeredTexts;
+    private final AgwRegistry<AgwLg> registeredLangs;
 
     AgwPluginManager(AgwPaperPlugin plugin) {
         this.plugin = plugin;
+        this.logger = plugin.getLogger();
         this.core = AgwCore.getCore();
         this.events = new ArrayList<>();
         this.pluginManager = Bukkit.getPluginManager();
+        this.registeredTexts = new AgwRegistry<>();
+        this.registeredLangs = new AgwRegistry<>();
     }
 
     @Override
@@ -51,12 +62,21 @@ public final class AgwPluginManager implements AgwManager {
     void enable() {
         regEv(new AgwPlayerListener());
 
+        AgwPluginAPI.fileManager().init();
         core.init();
+    }
+
+    void ready() {
+        Collection<AgwLg> langs = getLangs().list();
+        for(AgwLg lang : langs) {
+            lang.loadLang();
+        }
     }
 
     public void regEv(Listener listener) {
         events.add(listener);
 
+        logger.info("Registered Event Listener: " + listener.getClass().getName());
         pluginManager.registerEvents(listener, plugin);
     }
 
@@ -67,5 +87,25 @@ public final class AgwPluginManager implements AgwManager {
     @Override
     public List<Listener> getEvents() {
         return events;
+    }
+
+    @Override
+    public void registerText(UnlocalizedText text) {
+        registeredTexts.register(text);
+    }
+
+    @Override
+    public void registerLang(AgwLg language) {
+        registeredLangs.register(language);
+    }
+
+    @Override
+    public AgwRegistry<UnlocalizedText> getTexts() {
+        return registeredTexts;
+    }
+
+    @Override
+    public AgwRegistry<AgwLg> getLangs() {
+        return registeredLangs;
     }
 }

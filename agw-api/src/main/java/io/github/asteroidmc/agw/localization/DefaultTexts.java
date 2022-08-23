@@ -17,25 +17,30 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.github.asteroidmc.agw.listeners;
+package io.github.asteroidmc.agw.localization;
 
-import io.github.asteroidmc.agw.AgwPlugin;
-import io.github.asteroidmc.agw.core.listeners.PlayerListener;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import java.util.ArrayList;
+import java.util.List;
 
-public final class AgwPlayerListener extends PlayerListener {
+public final class DefaultTexts {
 
-    @Override
-    @EventHandler
-    public void onJoin(PlayerJoinEvent e) {
-        super.onJoin(e);
+    private static final List<UnlocalizedText> texts = new ArrayList<>();
+
+    public static final UnlocalizedText PREFIX = text("prefix");
+
+    public static final UnlocalizedText ERROR_PERMISSION = text("error.permission");
+
+    public static final UnlocalizedText CHAT_PLAYER_SERVER_JOIN = text("chat.player.server_join");
+    public static final UnlocalizedText CHAT_PLAYER_SERVER_QUIT = text("chat.player.server_quit");
+
+    private static UnlocalizedText text(String tag) {
+        UnlocalizedText ut = UnlocalizedText.create(tag);
+        texts.add(ut);
+        return ut;
     }
 
-    @Override
-    @EventHandler
-    public void onQuit(PlayerQuitEvent e) {
-        super.onQuit(e);
+    public static List<UnlocalizedText> getTexts() {
+        return texts;
     }
+
 }

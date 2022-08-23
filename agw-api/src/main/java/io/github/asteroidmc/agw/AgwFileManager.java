@@ -19,43 +19,37 @@
 
 package io.github.asteroidmc.agw;
 
-import io.github.asteroidmc.agw.localization.AgwUnlocalizedText;
-import io.github.asteroidmc.agw.localization.UnlocalizedText;
-import org.jetbrains.annotations.NotNull;
+import io.github.asteroidmc.agw.xio.XRL;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.plugin.Plugin;
 
-public final class AgwPluginAPI implements AgwAPI {
+import java.io.File;
 
-    private static AgwPluginAPI api;
+public interface AgwFileManager {
 
-    private boolean closed;
-
-    AgwPluginAPI() {
-        api = this;
-
-        this.closed = false;
+    default File newFile(String... paths) {
+        String path = XRL.mergePaths(paths);
+        return new File(path);
     }
 
-    @Override
-    public boolean isClosed() {
-        return closed;
-    }
+    File getDataFolder();
 
-    @Override
-    public UnlocalizedText createUnlocalizedText(String tag) {
-        return new AgwUnlocalizedText(tag);
-    }
+    XRL fileToXRL(File file);
 
-    void closeAPI() {
-        this.closed = true;
-        AgwPaperPlugin.getInstance().getLogger().info("API has been closed.");
-    }
+    File XRLToFile(XRL xrl);
 
-    public static AgwPluginAPI getInstance() {
-        return api;
-    }
+    File getLangFile();
 
-    public static AgwDataFileManager fileManager() {
-        return AgwPaperPlugin.getInstance().getFileManager();
-    }
+    FileConfiguration getConfig();
+
+    void reloadConfig();
+
+    void writeDefault(File file, String resource, Plugin plugin);
+
+    void saveDefault(File file, String resource, Plugin plugin);
+
+    void writeDefault(XRL xrl, String resource, Plugin plugin);
+
+    void saveDefault(XRL xrl, String resource, Plugin plugin);
 
 }

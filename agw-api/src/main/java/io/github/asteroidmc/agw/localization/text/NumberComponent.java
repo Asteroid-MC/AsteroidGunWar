@@ -17,45 +17,35 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.github.asteroidmc.agw;
+package io.github.asteroidmc.agw.localization.text;
 
-import io.github.asteroidmc.agw.localization.AgwUnlocalizedText;
-import io.github.asteroidmc.agw.localization.UnlocalizedText;
-import org.jetbrains.annotations.NotNull;
+public final class NumberComponent implements TextComponent<Number> {
 
-public final class AgwPluginAPI implements AgwAPI {
+    private Number value;
 
-    private static AgwPluginAPI api;
-
-    private boolean closed;
-
-    AgwPluginAPI() {
-        api = this;
-
-        this.closed = false;
+    public NumberComponent(Number value) {
+        this.value = value;
     }
 
     @Override
-    public boolean isClosed() {
-        return closed;
+    public Number getRawComponent() {
+        return value;
     }
 
     @Override
-    public UnlocalizedText createUnlocalizedText(String tag) {
-        return new AgwUnlocalizedText(tag);
+    public void setRawComponent(Number value) {
+        this.value = value;
     }
 
-    void closeAPI() {
-        this.closed = true;
-        AgwPaperPlugin.getInstance().getLogger().info("API has been closed.");
+    @Override
+    public void applyColor() { }
+
+    @Override
+    public String replaceArgument(String arg, String val) {
+        return String.valueOf(value);
     }
 
-    public static AgwPluginAPI getInstance() {
-        return api;
+    public String toString() {
+        return String.valueOf(value);
     }
-
-    public static AgwDataFileManager fileManager() {
-        return AgwPaperPlugin.getInstance().getFileManager();
-    }
-
 }

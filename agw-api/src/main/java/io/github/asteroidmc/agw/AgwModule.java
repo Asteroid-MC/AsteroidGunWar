@@ -19,43 +19,20 @@
 
 package io.github.asteroidmc.agw;
 
-import io.github.asteroidmc.agw.localization.AgwUnlocalizedText;
-import io.github.asteroidmc.agw.localization.UnlocalizedText;
-import org.jetbrains.annotations.NotNull;
+public abstract class AgwModule {
 
-public final class AgwPluginAPI implements AgwAPI {
+    public void onLoad() { }
 
-    private static AgwPluginAPI api;
+    public void onEnable() { }
 
-    private boolean closed;
+    public void onDisable() { }
 
-    AgwPluginAPI() {
-        api = this;
-
-        this.closed = false;
+    public AgwPlugin getAgw() {
+        return AgwPlugin.getInstance();
     }
 
-    @Override
-    public boolean isClosed() {
-        return closed;
-    }
-
-    @Override
-    public UnlocalizedText createUnlocalizedText(String tag) {
-        return new AgwUnlocalizedText(tag);
-    }
-
-    void closeAPI() {
-        this.closed = true;
-        AgwPaperPlugin.getInstance().getLogger().info("API has been closed.");
-    }
-
-    public static AgwPluginAPI getInstance() {
-        return api;
-    }
-
-    public static AgwDataFileManager fileManager() {
-        return AgwPaperPlugin.getInstance().getFileManager();
+    public AgwManager getAgwManager() {
+        return AgwPlugin.getInstance().getAgwManager();
     }
 
 }

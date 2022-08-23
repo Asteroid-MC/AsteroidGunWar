@@ -17,25 +17,26 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.github.asteroidmc.agw.listeners;
+package io.github.asteroidmc.agw.localization;
 
-import io.github.asteroidmc.agw.AgwPlugin;
-import io.github.asteroidmc.agw.core.listeners.PlayerListener;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import io.github.asteroidmc.agw.AgwAPI;
+import io.github.asteroidmc.agw.Registerable;
 
-public final class AgwPlayerListener extends PlayerListener {
+public interface UnlocalizedText extends Registerable {
 
-    @Override
-    @EventHandler
-    public void onJoin(PlayerJoinEvent e) {
-        super.onJoin(e);
+    /**
+     * Creates new unlocalized text for localizing.<br>
+     * If you make module or plugin, please add .lang file.
+     *
+     * @param tag unlocalized text with String
+     * @return unlocalized text object
+     */
+    static UnlocalizedText create(String tag) {
+        return AgwAPI.getAPI().createUnlocalizedText(tag);
     }
 
-    @Override
-    @EventHandler
-    public void onQuit(PlayerQuitEvent e) {
-        super.onQuit(e);
-    }
+    String getTag();
+
+    TextLocalizer localizer();
+
 }

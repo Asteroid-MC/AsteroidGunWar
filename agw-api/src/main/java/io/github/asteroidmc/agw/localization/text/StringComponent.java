@@ -17,45 +17,36 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.github.asteroidmc.agw;
+package io.github.asteroidmc.agw.localization.text;
 
-import io.github.asteroidmc.agw.localization.AgwUnlocalizedText;
-import io.github.asteroidmc.agw.localization.UnlocalizedText;
-import org.jetbrains.annotations.NotNull;
+import org.bukkit.ChatColor;
 
-public final class AgwPluginAPI implements AgwAPI {
+public final class StringComponent implements TextComponent<String> {
 
-    private static AgwPluginAPI api;
+    private String value;
 
-    private boolean closed;
+    public StringComponent(String value) {
+        this.value = value;
+    }
 
-    AgwPluginAPI() {
-        api = this;
+    public String getRawComponent() {
+        return value;
+    }
 
-        this.closed = false;
+    public void setRawComponent(String value) {
+        this.value = value;
+    }
+
+    public void applyColor() {
+        this.value = ChatColor.translateAlternateColorCodes('&', this.value);
     }
 
     @Override
-    public boolean isClosed() {
-        return closed;
+    public String replaceArgument(String arg, String val) {
+        return value.replaceAll("\\Q%" + arg + "%\\E", val);
     }
 
-    @Override
-    public UnlocalizedText createUnlocalizedText(String tag) {
-        return new AgwUnlocalizedText(tag);
+    public String toString() {
+        return value;
     }
-
-    void closeAPI() {
-        this.closed = true;
-        AgwPaperPlugin.getInstance().getLogger().info("API has been closed.");
-    }
-
-    public static AgwPluginAPI getInstance() {
-        return api;
-    }
-
-    public static AgwDataFileManager fileManager() {
-        return AgwPaperPlugin.getInstance().getFileManager();
-    }
-
 }

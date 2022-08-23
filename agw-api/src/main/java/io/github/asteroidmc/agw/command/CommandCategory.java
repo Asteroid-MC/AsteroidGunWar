@@ -17,25 +17,37 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.github.asteroidmc.agw.listeners;
+package io.github.asteroidmc.agw.command;
 
-import io.github.asteroidmc.agw.AgwPlugin;
-import io.github.asteroidmc.agw.core.listeners.PlayerListener;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+public enum CommandCategory {
 
-public final class AgwPlayerListener extends PlayerListener {
+    GENERAL(0, "agw.command.general", "agw"),
+    SYSTEM(10, "agw.command.system", "agw-system"),
+    GAME(11, "agw.command.game", "agw-game"),
+    CHAT(12, "agw.command.chat", "agw-chat"),
+    PLAYER(20, "agw.command.player", "agw-player"),
+    PROXY(-1, "agw.command.proxy", "agw-proxy");
 
-    @Override
-    @EventHandler
-    public void onJoin(PlayerJoinEvent e) {
-        super.onJoin(e);
+    private final int id;
+    private final String permission;
+    private final String prefix;
+
+    CommandCategory(int id, String permission, String prefix) {
+        this.id = id;
+        this.permission = permission;
+        this.prefix = prefix;
     }
 
-    @Override
-    @EventHandler
-    public void onQuit(PlayerQuitEvent e) {
-        super.onQuit(e);
+    public int getId() {
+        return id;
     }
+
+    public String getPermission() {
+        return permission;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
 }

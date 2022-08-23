@@ -17,45 +17,31 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.github.asteroidmc.agw;
+package io.github.asteroidmc.agw.localization;
 
-import io.github.asteroidmc.agw.localization.AgwUnlocalizedText;
-import io.github.asteroidmc.agw.localization.UnlocalizedText;
-import org.jetbrains.annotations.NotNull;
+public final class AgwUnlocalizedText implements UnlocalizedText {
 
-public final class AgwPluginAPI implements AgwAPI {
+    private String tag;
+    private AgwTextLocalizer localizer;
 
-    private static AgwPluginAPI api;
-
-    private boolean closed;
-
-    AgwPluginAPI() {
-        api = this;
-
-        this.closed = false;
+    public AgwUnlocalizedText(String tag) {
+        if(tag.matches("[^a-zA-Z0-9_\\-.*]")) throw new IllegalArgumentException("contains invalid characters (valid chars: a-z A-Z 0-9 _ - . *)");
+        this.tag = tag;
+        this.localizer = new AgwTextLocalizer(this);
     }
 
     @Override
-    public boolean isClosed() {
-        return closed;
+    public String getTag() {
+        return tag;
     }
 
     @Override
-    public UnlocalizedText createUnlocalizedText(String tag) {
-        return new AgwUnlocalizedText(tag);
+    public TextLocalizer localizer() {
+        return localizer;
     }
 
-    void closeAPI() {
-        this.closed = true;
-        AgwPaperPlugin.getInstance().getLogger().info("API has been closed.");
+    @Override
+    public String registeringName() {
+        return tag;
     }
-
-    public static AgwPluginAPI getInstance() {
-        return api;
-    }
-
-    public static AgwDataFileManager fileManager() {
-        return AgwPaperPlugin.getInstance().getFileManager();
-    }
-
 }
