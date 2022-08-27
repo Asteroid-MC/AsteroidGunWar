@@ -25,13 +25,13 @@ import io.github.asteroidmc.agw.xio.StringMap;
 
 import java.io.File;
 
-public abstract class AgwLg implements Registerable {
+public abstract class AgwLanguage implements Registerable {
 
     private String id;
     private String displayName;
     protected StringMap stringMap;
 
-    protected AgwLg(String id) {
+    protected AgwLanguage(String id) {
         if(id.matches("[^a-zA-Z0-9_]")) throw new IllegalArgumentException("contains invalid characters (valid chars: a-z A-Z _)");
         this.id = this.displayName = id;
         this.stringMap = StringMap.empty();
@@ -69,10 +69,10 @@ public abstract class AgwLg implements Registerable {
     }
 
     public Translator translator() {
-        AgwLg lang = this;
+        AgwLanguage lang = this;
         return new Translator() {
             @Override
-            public AgwLg getLang() {
+            public AgwLanguage getLang() {
                 return lang;
             }
 

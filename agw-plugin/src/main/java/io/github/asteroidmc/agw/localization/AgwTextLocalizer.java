@@ -36,7 +36,7 @@ public class AgwTextLocalizer implements TextLocalizer {
     }
 
     @Override
-    public String format(AgwLg lang) {
+    public String format(AgwLanguage lang) {
         return ChatColor.translateAlternateColorCodes('&',
                 lang.translator().translate(this));
     }

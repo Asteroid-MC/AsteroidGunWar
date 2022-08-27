@@ -17,15 +17,12 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.github.asteroidmc.agw.core.listeners;
+package io.github.asteroidmc.agw.listeners;
 
-import io.github.asteroidmc.agw.AgwPlugin;
 import io.github.asteroidmc.agw.localization.DefaultTexts;
 import io.github.asteroidmc.agw.localization.StandardLangs;
 import io.github.asteroidmc.agw.localization.text.AgwComponent;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -34,7 +31,7 @@ public class PlayerListener implements Listener {
 
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
-        AgwComponent component = new AgwComponent().add(DefaultTexts.CHAT_PLAYER_SERVER_JOIN);
+        AgwComponent component = new AgwComponent().append(DefaultTexts.CHAT_PLAYER_SERVER_JOIN);
         component.setArgument("player", p.getDisplayName());
 
         String msg = component.stringify(StandardLangs.JA_JP);
@@ -44,7 +41,7 @@ public class PlayerListener implements Listener {
 
     public void onQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
-        AgwComponent component = new AgwComponent().add(DefaultTexts.CHAT_PLAYER_SERVER_QUIT);
+        AgwComponent component = new AgwComponent().append(DefaultTexts.CHAT_PLAYER_SERVER_QUIT);
         component.setArgument("player", p.getDisplayName());
 
         e.setQuitMessage(component.stringify(StandardLangs.JA_JP));

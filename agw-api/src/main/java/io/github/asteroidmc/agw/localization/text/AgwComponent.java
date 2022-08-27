@@ -19,7 +19,8 @@
 
 package io.github.asteroidmc.agw.localization.text;
 
-import io.github.asteroidmc.agw.localization.AgwLg;
+import io.github.asteroidmc.agw.command.SenderType;
+import io.github.asteroidmc.agw.localization.AgwLanguage;
 import io.github.asteroidmc.agw.localization.UnlocalizedText;
 import org.bukkit.ChatColor;
 
@@ -28,21 +29,20 @@ import java.util.*;
 public final class AgwComponent {
 
     private final List<TextComponent<?>> components = new ArrayList<>();
-    private final Map<String, String> args = new HashMap<>();
+    private final Map<String, Object> args = new HashMap<>();
     private String str;
 
-    public AgwComponent append(TextComponent<?>... components) {
-        this.components.addAll(Arrays.asList(components));
-        this.str = "";
-        return this;
-    }
-
-    public AgwComponent add(Object... objects) {
+    public AgwComponent append(Object... objects) {
         for(Object o : objects) {
             if(o == null) continue;
             try {
                 if (o instanceof TextComponent) {
                     this.components.add((TextComponent<?>) o);
+                    continue;
+                }
+                if (o instanceof AgwComponent) {
+                    List<TextComponent<?>> components = new ArrayList<>(((AgwComponent) o).components());
+                    this.components.addAll(components);
                     continue;
                 }
                 if (o instanceof Number) {
@@ -70,19 +70,36 @@ public final class AgwComponent {
         return this;
     }
 
-    public void setArgument(String arg, String val) {
+    public void setArgument(String arg, Object val) {
+        if(arg == null && val == null) return;
         args.put(arg, val);
     }
 
-    public String stringify(AgwLg lang) {
+    public String stringify(AgwLanguage lang) {
         StringBuilder sb = new StringBuilder();
         for(TextComponent<?> c : components) {
             if(c instanceof InternationalComponent) {
                 ((InternationalComponent) c).format(lang);
             }
             c.applyColor();
-            for(Map.Entry<String, String> entry : args.entrySet()) {
-                c.replaceArgument(entry.getKey(), entry.getValue());
+            for(Map.Entry<String, Object> entry : args.entrySet()) {
+                Object o = entry.getValue();
+                String str;
+                if(o instanceof InternationalComponent) {
+                    InternationalComponent ic = ((InternationalComponent) o);
+                    ic.format(lang);
+                    str = ic.toString();
+                } else if(o instanceof UnlocalizedText) {
+                    UnlocalizedText ut = (UnlocalizedText) o;
+                    str = ut.localizer().format(lang);
+                } else if(o instanceof SenderType) {
+                    SenderType st = (SenderType) o;
+                    str = st.getText().localizer().format(lang);
+                } else {
+                    str = o.toString();
+                }
+
+                c.replaceArgument(entry.getKey(), str);
             }
             sb.append(c);
         }
@@ -94,12 +111,16 @@ public final class AgwComponent {
         return str;
     }
 
-    public Collection<TextComponent<?>> getComponents() {
+    public Collection<TextComponent<?>> components() {
         return components;
     }
 
     public TextComponent<?> getComponent(int index) {
         return components.get(index);
+    }
+
+    public int size() {
+        return components.size();
     }
 
 }

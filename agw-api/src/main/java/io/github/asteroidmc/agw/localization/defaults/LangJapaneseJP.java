@@ -19,13 +19,13 @@
 
 package io.github.asteroidmc.agw.localization.defaults;
 
-import io.github.asteroidmc.agw.localization.AgwLg;
+import io.github.asteroidmc.agw.localization.AgwLanguage;
 import io.github.asteroidmc.agw.xio.StringMap;
 
 import java.io.File;
 import java.io.IOException;
 
-public final class LangJapaneseJP extends AgwLg {
+public final class LangJapaneseJP extends AgwLanguage {
 
     public LangJapaneseJP() {
         super("ja_jp");
@@ -41,10 +41,18 @@ public final class LangJapaneseJP extends AgwLg {
 
         StringMap.Builder builder = new StringMap.Builder();
 
-        builder.put("prefix", "&9&lA&3&lGW&r &8&l>&r ");
-        builder.put("error.permission", "&c権限がありません。");
-        builder.put("chat.player.server_join", "&a>> &e%player% &7がサーバーに参加しました。");
-        builder.put("chat.player.server_quit", "&c<< &e%player% &7がサーバーから退出しました。");
+        builder
+                .put("prefix", "&9&lA&3&lGW&r &8&l>&r ")
+                .put("error.permission", "&c権限がありません。")
+                .put("error.unsupported_sender", "&cこの操作は%supported_senders%からのみ実行できます。")
+                .put("chat.player.server_join", "&a-> &e%player% &7がサーバーに参加しました。")
+                .put("chat.player.server_quit", "&c<- &e%player% &7がサーバーから退出しました。")
+                .put("word.player", "プレイヤー")
+                .put("word.console", "コンソール")
+                .put("word.remote_console", "リモートコンソール")
+                .put("word.command_block", "コマンドブロック")
+                .put("word.entity", "エンティティ")
+        ;
 
         this.stringMap = builder.build();
 

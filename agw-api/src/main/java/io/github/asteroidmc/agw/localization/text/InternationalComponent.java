@@ -19,9 +19,8 @@
 
 package io.github.asteroidmc.agw.localization.text;
 
-import io.github.asteroidmc.agw.localization.AgwLg;
+import io.github.asteroidmc.agw.localization.AgwLanguage;
 import io.github.asteroidmc.agw.localization.UnlocalizedText;
-import org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
 
 public class InternationalComponent implements TextComponent<UnlocalizedText> {
@@ -54,7 +53,7 @@ public class InternationalComponent implements TextComponent<UnlocalizedText> {
         return this.str;
     }
 
-    public void format(AgwLg lang) {
+    public void format(AgwLanguage lang) {
         this.str = value.localizer().format(lang);
     }
 

@@ -19,8 +19,6 @@
 
 package io.github.asteroidmc.agw.listeners;
 
-import io.github.asteroidmc.agw.AgwPlugin;
-import io.github.asteroidmc.agw.core.listeners.PlayerListener;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;

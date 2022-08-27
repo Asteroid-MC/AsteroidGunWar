@@ -24,7 +24,7 @@ import io.github.asteroidmc.agw.localization.defaults.LangJapaneseJP;
 
 public final class StandardLangs {
 
-    public static final AgwLg EN_US = new LangEnglishUS();
-    public static final AgwLg JA_JP = new LangJapaneseJP();
+    public static final AgwLanguage EN_US = new LangEnglishUS();
+    public static final AgwLanguage JA_JP = new LangJapaneseJP();
 
 }

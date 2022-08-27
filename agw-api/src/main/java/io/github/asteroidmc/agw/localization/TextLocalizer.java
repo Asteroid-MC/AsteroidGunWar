@@ -23,7 +23,7 @@ public interface TextLocalizer {
 
     UnlocalizedText getText();
 
-    String format(AgwLg lang);
+    String format(AgwLanguage lang);
 
     String format(String lang);
 

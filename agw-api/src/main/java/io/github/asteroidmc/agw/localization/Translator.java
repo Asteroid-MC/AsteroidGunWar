@@ -21,7 +21,7 @@ package io.github.asteroidmc.agw.localization;
 
 public interface Translator {
 
-    AgwLg getLang();
+    AgwLanguage getLang();
 
     String translate(TextLocalizer localizer);
 

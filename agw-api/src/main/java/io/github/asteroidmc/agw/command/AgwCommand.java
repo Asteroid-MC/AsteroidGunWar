@@ -21,23 +21,33 @@ package io.github.asteroidmc.agw.command;
 
 import io.github.asteroidmc.agw.AgwAPI;
 import io.github.asteroidmc.agw.AgwPlugin;
-import org.bukkit.ChatColor;
+import io.github.asteroidmc.agw.Registerable;
+import io.github.asteroidmc.agw.localization.AgwLanguage;
+import io.github.asteroidmc.agw.localization.DefaultTexts;
+import io.github.asteroidmc.agw.localization.StandardLangs;
+import io.github.asteroidmc.agw.localization.text.AgwComponent;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public abstract class AgwCommand extends Command {
+public abstract class AgwCommand extends Command implements Registerable {
 
     private final AgwPlugin plugin;
     private final AgwAPI api;
 
     private CommandCategory category = CommandCategory.GENERAL;
+    private AgwComponent permissionMessageComponent = null;
+    private AgwComponent senderMessage = null;
+    private List<SenderType> allowedSenders;
 
     protected AgwCommand(String name) {
         super(name);
         plugin = AgwPlugin.getInstance();
         api = AgwAPI.getAPI();
+        allowedSenders = Arrays.asList(SenderType.values());
     }
 
     protected AgwCommand(String name, CommandCategory category, String description, String usageMessage, List<String> aliases) {
@@ -45,6 +55,7 @@ public abstract class AgwCommand extends Command {
         this.category = category;
         plugin = AgwPlugin.getInstance();
         api = AgwAPI.getAPI();
+        allowedSenders = new ArrayList<>();
     }
 
     public CommandCategory getCategory() {
@@ -57,8 +68,93 @@ public abstract class AgwCommand extends Command {
     }
 
     @Override
-    public void setPermission(String permission) {
+    public void setPermission(String permission) { }
 
+    public AgwComponent getPermissionMessageComponent() {
+        return permissionMessageComponent;
+    }
+
+    public AgwComponent getSenderMessage() {
+        return senderMessage;
+    }
+
+    public void setSenderMessage(AgwComponent component) {
+        this.senderMessage = component;
+    }
+
+    public AgwCommand setAllowedSenders(List<SenderType> senders) {
+        this.allowedSenders = senders;
+        return this;
+    }
+
+    public AgwCommand allowSender(SenderType sender) {
+        allowedSenders.add(sender);
+        return this;
+    }
+
+    public AgwCommand disallowSender(SenderType sender) {
+        allowedSenders.remove(sender);
+        return this;
+    }
+
+    public boolean testSender(CommandSender target, List<SenderType> allowedSenders) {
+        if(testSenderSilent(target)) {
+            return true;
+        }
+        AgwLanguage lang = StandardLangs.JA_JP;
+
+        AgwComponent senderMsg = getSenderMessage();
+
+        List<String> l = new ArrayList<>();
+        for(SenderType sender : allowedSenders)
+            l.add(sender.getText().localizer().format(lang));
+        String senders = String.join(", ", l);
+
+        if(senderMsg == null) {
+            senderMsg = new AgwComponent();
+            senderMsg.append(DefaultTexts.PREFIX, " ", DefaultTexts.ERROR_UNSUPPORTED_SENDER);
+        }
+        senderMsg.setArgument("allowed_senders", senders);
+        senderMsg.setArgument("sender", SenderType.getType(target));
+
+        if (senderMsg.size() != 0) {
+            String msg = senderMsg.stringify(lang);
+            for (String line : msg.split("\n")) {
+                target.sendMessage(line);
+            }
+        }
+
+        return false;
+    }
+
+    public boolean testSender(CommandSender target) {
+        return testSender(target, allowedSenders);
+    }
+
+    public boolean testSenderSilent(CommandSender target, List<SenderType> allowedSenders) {
+        for(SenderType sender : allowedSenders)
+            if(!sender.match(target)) return false;
+        return true;
+    }
+
+    public boolean testSenderSilent(CommandSender target) {
+        return testSenderSilent(target, allowedSenders);
+    }
+
+    public boolean isExecutableSilent(CommandSender target, List<SenderType> allowedSenders) {
+        return testSenderSilent(target, allowedSenders) && testPermissionSilent(target);
+    }
+
+    public boolean isExecutableSilent(CommandSender target) {
+        return isExecutableSilent(target, allowedSenders);
+    }
+
+    public boolean isExecutable(CommandSender target, List<SenderType> allowedSenders) {
+        return testSender(target, allowedSenders) && testPermission(target);
+    }
+
+    public boolean isExecutable(CommandSender target) {
+        return isExecutable(target, allowedSenders);
     }
 
     @Override
@@ -66,14 +162,21 @@ public abstract class AgwCommand extends Command {
         if (testPermissionSilent(target)) {
             return true;
         }
+        AgwLanguage lang = StandardLangs.JA_JP;
 
-        String permissionMessage = getPermissionMessage();
+        AgwComponent permissionMessage = getPermissionMessageComponent();
         String permission = getPermission();
+        if(permissionMessage == null){
+            if(getPermissionMessage() == null) {
+                permissionMessage = new AgwComponent();
+                permissionMessage.append(DefaultTexts.PREFIX, " ", DefaultTexts.ERROR_PERMISSION);
+            } else permissionMessage = new AgwComponent().append(getPermissionMessage());
+        }
+        permissionMessage.setArgument("permission", permission);
 
-        if (permissionMessage == null) {
-            target.sendMessage(ChatColor.RED + "I'm sorry, but you do not have permission to perform this command. Please contact the server administrators if you believe that this is in error.");
-        } else if (permissionMessage.length() != 0) {
-            for (String line : permissionMessage.replace("<permission>", permission).split("\n")) {
+        if (permissionMessage.size() != 0) {
+            String msg = permissionMessage.stringify(lang);
+            for (String line : msg.split("\n")) {
                 target.sendMessage(line);
             }
         }
@@ -85,6 +188,10 @@ public abstract class AgwCommand extends Command {
     public boolean testPermissionSilent(CommandSender target) {
         String permission = getPermission();
         return target.hasPermission(permission);
+    }
+
+    protected void setPermissionMessageComponent(AgwComponent component) {
+        this.permissionMessageComponent = component;
     }
 
     protected void setCategory(CommandCategory category) {

@@ -19,16 +19,16 @@
 
 package io.github.asteroidmc.agw;
 
+import io.github.asteroidmc.agw.command.defaults.AgwMainCommand;
+import io.github.asteroidmc.agw.core.AgwCommandCore;
 import io.github.asteroidmc.agw.core.AgwCore;
 import io.github.asteroidmc.agw.listeners.AgwPlayerListener;
-import io.github.asteroidmc.agw.localization.AgwLg;
+import io.github.asteroidmc.agw.localization.AgwLanguage;
 import io.github.asteroidmc.agw.localization.UnlocalizedText;
-import io.github.asteroidmc.agw.localization.text.AgwComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -42,7 +42,7 @@ public final class AgwPluginManager implements AgwManager {
     private final List<Listener> events;
     private final PluginManager pluginManager;
     private final AgwRegistry<UnlocalizedText> registeredTexts;
-    private final AgwRegistry<AgwLg> registeredLangs;
+    private final AgwRegistry<AgwLanguage> registeredLangs;
 
     AgwPluginManager(AgwPaperPlugin plugin) {
         this.plugin = plugin;
@@ -64,11 +64,15 @@ public final class AgwPluginManager implements AgwManager {
 
         AgwPluginAPI.fileManager().init();
         core.init();
+
+        AgwCommandCore cc = core.getCommandCore();
+        cc.queue(new AgwMainCommand());
+        cc.register();
     }
 
     void ready() {
-        Collection<AgwLg> langs = getLangs().list();
-        for(AgwLg lang : langs) {
+        Collection<AgwLanguage> langs = getLangs().list();
+        for(AgwLanguage lang : langs) {
             lang.loadLang();
         }
     }
@@ -95,7 +99,7 @@ public final class AgwPluginManager implements AgwManager {
     }
 
     @Override
-    public void registerLang(AgwLg language) {
+    public void registerLang(AgwLanguage language) {
         registeredLangs.register(language);
     }
 
@@ -105,7 +109,7 @@ public final class AgwPluginManager implements AgwManager {
     }
 
     @Override
-    public AgwRegistry<AgwLg> getLangs() {
+    public AgwRegistry<AgwLanguage> getLangs() {
         return registeredLangs;
     }
 }

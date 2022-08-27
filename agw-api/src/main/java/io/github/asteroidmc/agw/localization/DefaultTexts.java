@@ -29,9 +29,16 @@ public final class DefaultTexts {
     public static final UnlocalizedText PREFIX = text("prefix");
 
     public static final UnlocalizedText ERROR_PERMISSION = text("error.permission");
+    public static final UnlocalizedText ERROR_UNSUPPORTED_SENDER = text("error.unsupported_sender");
 
     public static final UnlocalizedText CHAT_PLAYER_SERVER_JOIN = text("chat.player.server_join");
     public static final UnlocalizedText CHAT_PLAYER_SERVER_QUIT = text("chat.player.server_quit");
+
+    public static final UnlocalizedText PLAYER = text("word.player");
+    public static final UnlocalizedText ENTITY = text("word.entity");
+    public static final UnlocalizedText COMMAND_BLOCK = text("word.command_block");
+    public static final UnlocalizedText CONSOLE = text("word.console");
+    public static final UnlocalizedText REMOTE_CONSOLE = text("word.remote_console");
 
     private static UnlocalizedText text(String tag) {
         UnlocalizedText ut = UnlocalizedText.create(tag);

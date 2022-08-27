@@ -19,7 +19,7 @@
 
 package io.github.asteroidmc.agw;
 
-import io.github.asteroidmc.agw.localization.AgwLg;
+import io.github.asteroidmc.agw.localization.AgwLanguage;
 import io.github.asteroidmc.agw.localization.UnlocalizedText;
 import org.bukkit.event.Listener;
 
@@ -54,9 +54,9 @@ public interface AgwManager {
      *
      * @param language language to register
      */
-    void registerLang(AgwLg language);
+    void registerLang(AgwLanguage language);
 
-    AgwRegistry<AgwLg> getLangs();
+    AgwRegistry<AgwLanguage> getLangs();
 
     AgwRegistry<UnlocalizedText> getTexts();
 

@@ -19,15 +19,12 @@
 
 package io.github.asteroidmc.agw.core;
 
-import io.github.asteroidmc.agw.AgwAPI;
 import io.github.asteroidmc.agw.AgwManager;
 import io.github.asteroidmc.agw.AgwPlugin;
-import io.github.asteroidmc.agw.core.listeners.PlayerListener;
 import io.github.asteroidmc.agw.localization.DefaultTexts;
 import io.github.asteroidmc.agw.localization.StandardLangs;
 import io.github.asteroidmc.agw.localization.UnlocalizedText;
 import org.bukkit.Bukkit;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.jetbrains.annotations.NotNull;
 
@@ -41,6 +38,7 @@ public final class AgwCore {
     private PluginManager pluginManager;
     private AgwPlugin plugin;
     private Logger logger;
+    private final AgwCommandCore commandCore;
 
     public AgwCore() {
         instance = this;
@@ -49,6 +47,8 @@ public final class AgwCore {
         plugin = AgwPlugin.getInstance();
         logger = plugin.getLogger();
         closed = false;
+
+        commandCore = new AgwCommandCore(this);
     }
 
     public void init() {
@@ -69,6 +69,14 @@ public final class AgwCore {
 
     public boolean isClosed() {
         return closed;
+    }
+
+    public Logger getLogger() {
+        return logger;
+    }
+
+    public AgwCommandCore getCommandCore() {
+        return commandCore;
     }
 
     @NotNull
