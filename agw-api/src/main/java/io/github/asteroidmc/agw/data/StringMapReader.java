@@ -17,7 +17,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.github.asteroidmc.agw.xio;
+package io.github.asteroidmc.agw.data;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;

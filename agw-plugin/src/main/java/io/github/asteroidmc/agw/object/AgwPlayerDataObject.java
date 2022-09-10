@@ -17,38 +17,52 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.github.asteroidmc.agw;
+package io.github.asteroidmc.agw.object;
 
-import io.github.asteroidmc.agw.object.AgwPlayer;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
+import java.io.File;
 import java.util.UUID;
 
-public abstract class AgwPlugin extends JavaPlugin {
+@Data
+public class AgwPlayerDataObject implements AgwPlayerData {
 
-    static AgwPlugin instance = null;
-    static AgwAPI api = null;
+    private final UUID uuid;
+    private String name;
+    private Player player;
 
-    /**
-     * Gets the plugin instance.
-     *
-     * @return instance
-     */
-    public static AgwPlugin getInstance() {
-        return instance;
+    public AgwPlayerDataObject(UUID uuid) {
+        this.uuid = uuid;
+
+        this.name = null;
+        Player p = Bukkit.getPlayer(uuid);
+        if(p != null) this.name = p.getName();
+        this.player = p;
     }
 
-    public abstract AgwFileManager getFileManager();
+    @Override
+    public UUID getUniqueId() {
+        return uuid;
+    }
 
-    /**
-     * Gets the plugin manager.
-     *
-     * @return the plugin manager instance
-     */
-    public abstract AgwManager getAgwManager();
+    @Override
+    public String getName() {
+        return name;
+    }
 
-    public abstract AgwPlayer getPlayer(UUID id);
+    @Override
+    public Player getPlayer() {
+        return player;
+    }
+
+    @Override
+    public void refresh() {
+        Player p = Bukkit.getPlayer(uuid);
+        if(p != null) {
+            this.name = p.getName();
+            this.player = p;
+        }
+    }
 
 }

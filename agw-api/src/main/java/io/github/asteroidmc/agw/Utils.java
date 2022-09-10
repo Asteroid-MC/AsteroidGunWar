@@ -17,27 +17,22 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.github.asteroidmc.agw.localization;
+package io.github.asteroidmc.agw;
 
-import io.github.asteroidmc.agw.data.StringMap;
+import java.io.File;
 
-public final class TranslationMapTemplate {
+public final class Utils {
 
-    private static final StringMap map;
+    public static String path(String... path) {
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < path.length; i++) {
+            String s = path[i].trim();
+            if(s.endsWith(File.separator)) sb.append(s, 0, s.length() - 1);
+            else sb.append(s);
 
-    static {
-
-        StringMap.Builder builder = new StringMap.Builder();
-
-        builder.put("prefix", "");
-        builder.put("error.permission", "");
-
-        map = builder.build();
-
-    }
-
-    public static StringMap template() {
-        return map;
+            if(i + 1 != path.length && !path[i + 1].trim().startsWith(File.separator)) sb.append(File.separator);
+        }
+        return sb.toString().trim();
     }
 
 }

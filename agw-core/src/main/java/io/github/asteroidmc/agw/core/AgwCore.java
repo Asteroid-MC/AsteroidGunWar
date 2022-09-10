@@ -21,6 +21,7 @@ package io.github.asteroidmc.agw.core;
 
 import io.github.asteroidmc.agw.AgwManager;
 import io.github.asteroidmc.agw.AgwPlugin;
+import io.github.asteroidmc.agw.exception.UnsupportedVersionException;
 import io.github.asteroidmc.agw.localization.DefaultTexts;
 import io.github.asteroidmc.agw.localization.StandardLangs;
 import io.github.asteroidmc.agw.localization.UnlocalizedText;
@@ -35,10 +36,11 @@ public final class AgwCore {
     private static AgwCore instance;
 
     private boolean closed;
-    private PluginManager pluginManager;
-    private AgwPlugin plugin;
-    private Logger logger;
+    private final PluginManager pluginManager;
+    private final AgwPlugin plugin;
+    private final Logger logger;
     private final AgwCommandCore commandCore;
+    private final AgwVersionCore versionCore;
 
     public AgwCore() {
         instance = this;
@@ -49,10 +51,13 @@ public final class AgwCore {
         closed = false;
 
         commandCore = new AgwCommandCore(this);
+        versionCore = new AgwVersionCore(this);
     }
 
     public void init() {
         logger.info("Initializing core...");
+
+        versionCore.init();
 
         for(UnlocalizedText ut : DefaultTexts.getTexts()) {
             AgwPlugin.getInstance().getAgwManager().registerText(ut);
@@ -66,6 +71,8 @@ public final class AgwCore {
     public void close() {
         closed = true;
     }
+
+
 
     public boolean isClosed() {
         return closed;

@@ -21,7 +21,7 @@ package io.github.asteroidmc.agw.localization;
 
 import io.github.asteroidmc.agw.AgwAPI;
 import io.github.asteroidmc.agw.Registerable;
-import io.github.asteroidmc.agw.xio.StringMap;
+import io.github.asteroidmc.agw.data.StringMap;
 
 import java.io.File;
 

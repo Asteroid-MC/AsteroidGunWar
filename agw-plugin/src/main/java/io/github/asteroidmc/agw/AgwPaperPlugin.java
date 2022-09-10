@@ -20,6 +20,11 @@
 package io.github.asteroidmc.agw;
 
 import io.github.asteroidmc.agw.core.AgwCore;
+import io.github.asteroidmc.agw.object.AgwPlayer;
+import io.github.asteroidmc.agw.object.AgwPlayerObject;
+
+import java.util.Map;
+import java.util.UUID;
 
 public final class AgwPaperPlugin extends AgwPlugin {
 
@@ -30,6 +35,8 @@ public final class AgwPaperPlugin extends AgwPlugin {
 
     private AgwPluginManager agwManager;
     private AgwDataFileManager fileManager;
+
+    private Map<UUID, AgwPlayerObject> players;
 
     @Override
     public void onEnable() {
@@ -72,5 +79,18 @@ public final class AgwPaperPlugin extends AgwPlugin {
     @Override
     public AgwPluginManager getAgwManager() {
         return agwManager;
+    }
+
+    @Override
+    public AgwPlayerObject getPlayer(UUID id) {
+        return players.get(id);
+    }
+
+    public void addPlayer(UUID id, AgwPlayerObject player) {
+        players.put(id, player);
+    }
+
+    public void removePlayer(UUID id) {
+        players.remove(id);
     }
 }

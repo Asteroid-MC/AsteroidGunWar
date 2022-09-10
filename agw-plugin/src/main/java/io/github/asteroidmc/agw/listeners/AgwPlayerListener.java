@@ -19,21 +19,39 @@
 
 package io.github.asteroidmc.agw.listeners;
 
+import io.github.asteroidmc.agw.AgwPaperPlugin;
+import io.github.asteroidmc.agw.object.AgwPlayerDataObject;
+import io.github.asteroidmc.agw.object.AgwPlayerObject;
+import io.github.asteroidmc.agw.object.AgwPlayerProfileObject;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+
+import java.util.UUID;
 
 public final class AgwPlayerListener extends PlayerListener {
 
     @Override
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
+        UUID id = e.getPlayer().getUniqueId();
+        AgwPaperPlugin plugin = AgwPaperPlugin.getInstance();
+
+        AgwPlayerProfileObject profile = new AgwPlayerProfileObject(id);
+        AgwPlayerDataObject data = new AgwPlayerDataObject(id);
+        AgwPlayerObject obj = new AgwPlayerObject(id, profile, data);
+        plugin.addPlayer(id, obj);
+
         super.onJoin(e);
     }
 
     @Override
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
+        UUID id = e.getPlayer().getUniqueId();
+        AgwPaperPlugin plugin = AgwPaperPlugin.getInstance();
+        plugin.removePlayer(id);
+
         super.onQuit(e);
     }
 }

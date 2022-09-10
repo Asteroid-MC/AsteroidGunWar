@@ -19,7 +19,6 @@
 
 package io.github.asteroidmc.agw;
 
-import io.github.asteroidmc.agw.xio.XRL;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
 
@@ -27,16 +26,7 @@ import java.io.File;
 
 public interface AgwFileManager {
 
-    default File newFile(String... paths) {
-        String path = XRL.mergePaths(paths);
-        return new File(path);
-    }
-
     File getDataFolder();
-
-    XRL fileToXRL(File file);
-
-    File XRLToFile(XRL xrl);
 
     File getLangFile();
 
@@ -44,12 +34,10 @@ public interface AgwFileManager {
 
     void reloadConfig();
 
+    File getPlayersFolder();
+
     void writeDefault(File file, String resource, Plugin plugin);
 
     void saveDefault(File file, String resource, Plugin plugin);
-
-    void writeDefault(XRL xrl, String resource, Plugin plugin);
-
-    void saveDefault(XRL xrl, String resource, Plugin plugin);
 
 }

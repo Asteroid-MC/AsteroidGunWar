@@ -17,27 +17,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.github.asteroidmc.agw.localization;
+package io.github.asteroidmc.agw.object;
 
-import io.github.asteroidmc.agw.data.StringMap;
-
-public final class TranslationMapTemplate {
-
-    private static final StringMap map;
-
-    static {
-
-        StringMap.Builder builder = new StringMap.Builder();
-
-        builder.put("prefix", "");
-        builder.put("error.permission", "");
-
-        map = builder.build();
-
-    }
-
-    public static StringMap template() {
-        return map;
-    }
-
+public interface AgwObject {
 }

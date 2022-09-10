@@ -19,7 +19,6 @@
 
 package io.github.asteroidmc.agw;
 
-import io.github.asteroidmc.agw.xio.XRL;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -32,7 +31,8 @@ public final class AgwDataFileManager implements AgwFileManager {
     private final AgwPaperPlugin plugin;
     private final AgwPluginAPI api;
     private final File dataFolder;
-    private final File langFolder;
+    private File langFolder;
+    private File playersFolder;
 
     private final File configFile;
 
@@ -42,23 +42,30 @@ public final class AgwDataFileManager implements AgwFileManager {
         this.plugin = plugin;
         this.api = api;
         this.dataFolder = plugin.getDataFolder();
-        this.langFolder = new File(dataFolder, "lang");
+        this.langFolder = null;
         this.configFile = new File(dataFolder, "config.yml");
+        this.playersFolder = null;
     }
 
     public void init() {
         try {
 
             if(!dataFolder.exists()) {
-                dataFolder.mkdir();
-            }
-
-            if(!langFolder.exists()) {
-                langFolder.mkdir();
+                dataFolder.mkdirs();
             }
 
             saveDefault(configFile, "config.yml", plugin);
             config = YamlConfiguration.loadConfiguration(configFile);
+
+            langFolder = new File(config.getString("data.langFolder", Utils.path(dataFolder.getPath(), "lang")));
+            if(!langFolder.exists()) {
+                langFolder.mkdirs();
+            }
+
+            playersFolder = new File(config.getString("data.playersFolder", Utils.path(dataFolder.getPath(), "players")));
+            if(!playersFolder.exists()) {
+                playersFolder.mkdirs();
+            }
 
         } catch(Throwable t) {
             t.printStackTrace();
@@ -71,16 +78,6 @@ public final class AgwDataFileManager implements AgwFileManager {
     }
 
     @Override
-    public XRL fileToXRL(File file) {
-        return new XRL(true, file.getPath());
-    }
-
-    @Override
-    public File XRLToFile(XRL xrl) {
-        return xrl.toFile();
-    }
-
-    @Override
     public File getLangFile() {
         return langFolder;
     }
@@ -88,6 +85,11 @@ public final class AgwDataFileManager implements AgwFileManager {
     @Override
     public FileConfiguration getConfig() {
         return config;
+    }
+
+    @Override
+    public File getPlayersFolder() {
+        return playersFolder;
     }
 
     @Override
@@ -120,15 +122,5 @@ public final class AgwDataFileManager implements AgwFileManager {
             e.printStackTrace();
         }
         writeDefault(file, resource, plugin);
-    }
-
-    @Override
-    public void writeDefault(XRL xrl, String resource, Plugin plugin) {
-        writeDefault(xrl.toFile(), resource, plugin);
-    }
-
-    @Override
-    public void saveDefault(XRL xrl, String resource, Plugin plugin) {
-        saveDefault(xrl.toFile(), resource, plugin);
     }
 }

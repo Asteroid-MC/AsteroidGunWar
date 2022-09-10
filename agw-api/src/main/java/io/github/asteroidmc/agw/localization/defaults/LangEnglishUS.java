@@ -20,7 +20,7 @@
 package io.github.asteroidmc.agw.localization.defaults;
 
 import io.github.asteroidmc.agw.localization.AgwLanguage;
-import io.github.asteroidmc.agw.xio.StringMap;
+import io.github.asteroidmc.agw.data.StringMap;
 
 import java.io.File;
 import java.io.IOException;
