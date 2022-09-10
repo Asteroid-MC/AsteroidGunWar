@@ -19,7 +19,9 @@
 
 package io.github.asteroidmc.agw.data;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -30,7 +32,10 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public final class StringMap extends HashMap<String, String> {
 

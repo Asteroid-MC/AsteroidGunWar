@@ -22,7 +22,6 @@ package io.github.asteroidmc.agw.object;
 import io.github.asteroidmc.agw.localization.AgwLanguage;
 import org.bukkit.entity.Player;
 
-import java.io.File;
 import java.util.UUID;
 
 public interface AgwPlayerProfile extends AgwObject {

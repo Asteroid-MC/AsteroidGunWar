@@ -21,7 +21,6 @@ package io.github.asteroidmc.agw.core;
 
 import io.github.asteroidmc.agw.AgwManager;
 import io.github.asteroidmc.agw.AgwPlugin;
-import io.github.asteroidmc.agw.exception.UnsupportedVersionException;
 import io.github.asteroidmc.agw.localization.DefaultTexts;
 import io.github.asteroidmc.agw.localization.StandardLangs;
 import io.github.asteroidmc.agw.localization.UnlocalizedText;

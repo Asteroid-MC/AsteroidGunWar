@@ -19,8 +19,6 @@
 
 package io.github.asteroidmc.agw.localization.text;
 
-import org.bukkit.ChatColor;
-
 public interface TextComponent<T> {
 
     T getRawComponent();

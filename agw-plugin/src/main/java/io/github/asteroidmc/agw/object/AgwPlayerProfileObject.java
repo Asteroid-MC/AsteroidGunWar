@@ -24,7 +24,6 @@ import io.github.asteroidmc.agw.localization.StandardLangs;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.io.File;
 import java.util.UUID;
 
 @Data

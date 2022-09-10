@@ -22,7 +22,6 @@ package io.github.asteroidmc.agw;
 import io.github.asteroidmc.agw.command.defaults.AgwMainCommand;
 import io.github.asteroidmc.agw.core.AgwCommandCore;
 import io.github.asteroidmc.agw.core.AgwCore;
-import io.github.asteroidmc.agw.exception.UnsupportedVersionException;
 import io.github.asteroidmc.agw.listeners.AgwPlayerListener;
 import io.github.asteroidmc.agw.localization.AgwLanguage;
 import io.github.asteroidmc.agw.localization.UnlocalizedText;

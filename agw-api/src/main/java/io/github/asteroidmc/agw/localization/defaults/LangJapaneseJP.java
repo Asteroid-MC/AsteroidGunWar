@@ -19,8 +19,8 @@
 
 package io.github.asteroidmc.agw.localization.defaults;
 
-import io.github.asteroidmc.agw.localization.AgwLanguage;
 import io.github.asteroidmc.agw.data.StringMap;
+import io.github.asteroidmc.agw.localization.AgwLanguage;
 
 import java.io.File;
 import java.io.IOException;

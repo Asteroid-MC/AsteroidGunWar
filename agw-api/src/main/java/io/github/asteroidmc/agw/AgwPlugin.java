@@ -21,8 +21,6 @@ package io.github.asteroidmc.agw;
 
 import io.github.asteroidmc.agw.object.AgwPlayer;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 

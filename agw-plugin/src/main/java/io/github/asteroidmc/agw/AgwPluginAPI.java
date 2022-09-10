@@ -21,7 +21,6 @@ package io.github.asteroidmc.agw;
 
 import io.github.asteroidmc.agw.localization.AgwUnlocalizedText;
 import io.github.asteroidmc.agw.localization.UnlocalizedText;
-import org.jetbrains.annotations.NotNull;
 
 public final class AgwPluginAPI implements AgwAPI {
 

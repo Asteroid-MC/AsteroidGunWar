@@ -21,7 +21,6 @@ package io.github.asteroidmc.agw.object;
 
 import org.bukkit.entity.Player;
 
-import java.io.File;
 import java.util.UUID;
 
 public interface AgwPlayerData extends AgwObject {

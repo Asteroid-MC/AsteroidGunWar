@@ -20,7 +20,6 @@
 package io.github.asteroidmc.agw;
 
 import io.github.asteroidmc.agw.core.AgwCore;
-import io.github.asteroidmc.agw.object.AgwPlayer;
 import io.github.asteroidmc.agw.object.AgwPlayerObject;
 
 import java.util.Map;

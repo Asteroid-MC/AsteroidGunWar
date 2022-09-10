@@ -20,7 +20,6 @@
 package io.github.asteroidmc.agw;
 
 import io.github.asteroidmc.agw.localization.UnlocalizedText;
-import org.jetbrains.annotations.Nullable;
 
 public interface AgwAPI {
 
