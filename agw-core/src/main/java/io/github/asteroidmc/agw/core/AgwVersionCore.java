@@ -42,9 +42,10 @@ public class AgwVersionCore {
             int id = v.length >= 1 ? Integer.parseInt(v[1].trim()) : -1;
             version = MinecraftVersion.getVersion(id);
         } catch (NumberFormatException ignored) { }
+        logger.info("The plugin is running on Minecraft " + version.getVersion());
         if(version == null) {
             version = MinecraftVersion.v1_12;
-            logger.warning("The version is not supported.");
+            logger.warning("** The plugin does not supports this version! **");
         }
     }
 

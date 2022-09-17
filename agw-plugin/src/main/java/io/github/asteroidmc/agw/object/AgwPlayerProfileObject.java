@@ -33,9 +33,9 @@ public class AgwPlayerProfileObject implements AgwPlayerProfile {
     private String name;
     private Player player;
 
-    @Parameter
+    @Variable
     private String nick;
-    @Parameter
+    @Variable
     private AgwLanguage lang;
 
     public AgwPlayerProfileObject(UUID uuid) {

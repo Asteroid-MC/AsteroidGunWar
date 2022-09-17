@@ -21,6 +21,8 @@ package io.github.asteroidmc.agw.core;
 
 import io.github.asteroidmc.agw.AgwManager;
 import io.github.asteroidmc.agw.AgwPlugin;
+import io.github.asteroidmc.agw.data.DataBuilder;
+import io.github.asteroidmc.agw.data.DefaultEncoder;
 import io.github.asteroidmc.agw.localization.DefaultTexts;
 import io.github.asteroidmc.agw.localization.StandardLangs;
 import io.github.asteroidmc.agw.localization.UnlocalizedText;
@@ -57,6 +59,8 @@ public final class AgwCore {
         logger.info("Initializing core...");
 
         versionCore.init();
+
+        DataBuilder.register(new DataBuilder("def", new DefaultEncoder()));
 
         for(UnlocalizedText ut : DefaultTexts.getTexts()) {
             AgwPlugin.getInstance().getAgwManager().registerText(ut);

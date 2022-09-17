@@ -17,17 +17,14 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.github.asteroidmc.agw.object;
+package io.github.asteroidmc.agw.data;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+public interface DataEncoder<O> {
 
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD})
-public @interface Parameter {
+    byte[] encode(Object original);
 
-    boolean ignored() default false;
+    O decode(byte[] b);
+
+    byte[] identifier();
 
 }

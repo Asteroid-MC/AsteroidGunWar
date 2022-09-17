@@ -1,0 +1,3 @@
+data:
+  langFolder: "./plugins/AsteroidGunWar/lang"
+  playersFolder: "./plugin/AsteroidGunWar/players"

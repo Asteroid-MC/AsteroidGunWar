@@ -17,24 +17,25 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package io.github.asteroidmc.agw;
+package io.github.asteroidmc.agw.object;
 
-public abstract class AgwModule {
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-    public void onLoad() { }
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD})
+public @interface Variable {
 
-    public void onEnable() { }
+    boolean ignored() default false;
 
-    public void onDisable() { }
+    /**
+     * Input the name of registered serializer as {@code String} .<br>
+     * empty = default serializer
+     */
+    String serializer() default "";
 
-    public void onReady() { }
-
-    public AgwPlugin getAgw() {
-        return AgwPlugin.getInstance();
-    }
-
-    public AgwManager getAgwManager() {
-        return AgwPlugin.getInstance().getAgwManager();
-    }
+    long since() default 0;
 
 }

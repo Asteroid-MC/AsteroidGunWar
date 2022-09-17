@@ -74,6 +74,7 @@ public final class AgwPluginManager implements AgwManager {
         Collection<AgwLanguage> langs = getLangs().list();
         for(AgwLanguage lang : langs) {
             lang.loadLang();
+            logger.info("Loaded a language: " + lang.getDisplayName());
         }
     }
 

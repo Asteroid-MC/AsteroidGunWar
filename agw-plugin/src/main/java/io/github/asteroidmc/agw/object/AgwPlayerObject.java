@@ -27,14 +27,14 @@ import java.util.UUID;
 @Data
 public class AgwPlayerObject implements AgwPlayer {
 
-    @Parameter
+    @Variable
     private final UUID uuid;
     private String name;
     private Player player;
 
-    @Parameter
+    @Variable
     private final AgwPlayerProfileObject profile;
-    @Parameter
+    @Variable
     private final AgwPlayerDataObject data;
 
     public AgwPlayerObject(UUID uuid, AgwPlayerProfileObject profile, AgwPlayerDataObject data) {
